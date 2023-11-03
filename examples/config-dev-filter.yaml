@@ -16,3 +16,8 @@ method_subscription:
 api_subscription: head
 reporters:
   console: {}
+  matrix:
+    roomId: '#westend_faucet:matrix.org'
+    server: "https://matrix.org"
+    #userId: "(Optional) can be passed via env.MATRIX_USERID"
+    #accessToken: "(Optional) can be passed via env.MATRIX_ACCESSTOKEN"

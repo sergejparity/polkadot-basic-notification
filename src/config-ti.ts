@@ -45,8 +45,8 @@ export const EmailConfig = t.iface([], {
 });
 
 export const MatrixConfig = t.iface([], {
-  "userId": "string",
-  "accessToken": "string",
+  "userId": t.opt("string"), // optional as it can be passed through env.MATRIX_USERID
+  "accessToken": t.opt("string"), // optional as it can be passed through env.MATRIX_ACCESSTOKEN
   "roomId": "string",
   "server": "string",
   "batch": t.opt("BatchConfig"),
