@@ -1,4 +1,4 @@
-name: Polkadot CI/CD
+name: Polkadot Basic Notifications CI
 
 on:
   push:
