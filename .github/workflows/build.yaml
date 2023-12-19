@@ -23,4 +23,4 @@ jobs:
     - run: yarn install
     - run: yarn build
     - run: yarn test
-    - run: ls -aR 
+    - run: ls -R 
