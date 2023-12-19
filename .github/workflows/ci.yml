@@ -170,7 +170,7 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           push: true
-          context: ./artifacts
+          context: .
           file: ./injected.Containerfile
           build-args: |
             VCS_REF="${{ github.sha }}"
