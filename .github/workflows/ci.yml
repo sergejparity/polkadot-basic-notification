@@ -108,6 +108,9 @@ jobs:
           name: npm-build-artifacts
           path: artifacts
 
+      - name: Display artifacts
+        run: ls -R artifacts/
+
       - name: Build Docker image
         uses: docker/build-push-action@v5
         with:
