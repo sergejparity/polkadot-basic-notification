@@ -59,7 +59,7 @@ jobs:
         run: cp -r build/ artifacts/
 
       - name: Display artifacts
-        run: ls artifacts/
+        run: ls -R artifacts/
 
       - name: Upload artifacts
         uses: actions/upload-artifact@v2
@@ -112,7 +112,7 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           push: false
-          context: ./artifacts
+          context: ./artifacts/build
           file: ./injected.Containerfile
           build-args: |
             VCS_REF="${{ github.sha }}"
