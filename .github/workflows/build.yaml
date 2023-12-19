@@ -1,4 +1,4 @@
-name: Polkadot Basic Notifications CI
+name: Polkadot Basic Notifications CI [node 18, 20]
 
 on:
   push:
@@ -23,3 +23,4 @@ jobs:
     - run: yarn install
     - run: yarn build
     - run: yarn test
+    - run: ls -R 
