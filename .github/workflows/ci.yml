@@ -55,8 +55,11 @@ jobs:
       - name: Create artifacts directory
         run: mkdir -p artifacts
 
+      - name: Display build files 
+        run: ls -R build/
+
       - name: Copy build artifacts
-        run: cp -r build/ artifacts/
+        run: cp -r build/ artifacts
 
       - name: Display artifacts
         run: ls -R artifacts/
@@ -115,7 +118,7 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           push: false
-          context: ./artifacts/build
+          context: ./artifacts
           file: ./injected.Containerfile
           build-args: |
             VCS_REF="${{ github.sha }}"
