@@ -59,7 +59,7 @@ jobs:
         run: ls -R build/
 
       - name: Copy build artifacts
-        run: cp -r build/ artifacts
+        run: cp -rv build/ artifacts/
 
       - name: Display artifacts
         run: ls -R artifacts/
