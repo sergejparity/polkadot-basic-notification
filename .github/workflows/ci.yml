@@ -67,29 +67,29 @@ jobs:
           name: npm-build-artifacts
           path: artifacts
 
-  build-only-docker-image:
-    runs-on: ubuntu-latest
+  # build-only-docker-image:
+  #   runs-on: ubuntu-latest
 
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
+  #   steps:
+  #     - name: Checkout repository
+  #       uses: actions/checkout@v4
 
-      - name: Download npm build artifacts
-        uses: actions/download-artifact@v3
-        with:
-          name: npm-build-artifacts
+  #     - name: Download npm build artifacts
+  #       uses: actions/download-artifact@v3
+  #       with:
+  #         name: npm-build-artifacts
 
-      - name: Build Docker image
-        run: |
-          export VERSION=$(if [ "$CI_COMMIT_REF_NAME" == "master" ]; then echo "master-${CI_COMMIT_SHORT_SHA}"; else echo "$CI_COMMIT_REF_NAME"; fi)
-          docker build --build-arg VCS_REF="${GITHUB_SHA}" \
-                       --build-arg BUILD_DATE="$(date -u '+%Y-%m-%dT%H:%M:%SZ')" \
-                       --build-arg PROJECT_NAME="${GITHUB_REPOSITORY}" \
-                       -t "${{ secrets.DOCKER_USER }}/polkadot-basic-notification:latest" \
-                       -t "${{ secrets.DOCKER_USER }}/polkadot-basic-notification:$VERSION" \
-                       -f injected.Containerfile .
+  #     - name: Build Docker image
+  #       run: |
+  #         export VERSION=$(if [ "$CI_COMMIT_REF_NAME" == "master" ]; then echo "master-${CI_COMMIT_SHORT_SHA}"; else echo "$CI_COMMIT_REF_NAME"; fi)
+  #         docker build --build-arg VCS_REF="${GITHUB_SHA}" \
+  #                      --build-arg BUILD_DATE="$(date -u '+%Y-%m-%dT%H:%M:%SZ')" \
+  #                      --build-arg PROJECT_NAME="${GITHUB_REPOSITORY}" \
+  #                      -t "${{ secrets.DOCKER_USER }}/polkadot-basic-notification:latest" \
+  #                      -t "${{ secrets.DOCKER_USER }}/polkadot-basic-notification:$VERSION" \
+  #                      -f injected.Containerfile .
 
-  build-docker:
+  build-only-docker:
     runs-on: ubuntu-latest
     needs:
       - check-linting
