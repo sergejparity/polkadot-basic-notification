@@ -56,10 +56,10 @@ jobs:
         run: mkdir -p artifacts
 
       - name: Display build files 
-        run: ls -R build/
+        run: ls -R build/build
 
       - name: Copy build artifacts
-        run: cp -rv build/ artifacts/
+        run: cp -rv build/build/ artifacts/
 
       - name: Display artifacts
         run: ls -R artifacts/
