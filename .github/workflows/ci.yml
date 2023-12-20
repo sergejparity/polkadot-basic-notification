@@ -7,8 +7,6 @@ on:
   pull_request:
     branches:
       - master
-  schedule:
-    - cron: '0 0 * * *'
 
 env:
   IMAGE_NAME: sergejparity/polkadot-basic-notification
@@ -75,9 +73,6 @@ jobs:
       - build-npm
 
     steps:
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v3
-
       - name: Checkout repository
         uses: actions/checkout@v4
 
@@ -87,18 +82,15 @@ jobs:
           name: npm-build-artifacts
           path: artifacts
 
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
       - name: Build Docker image
         uses: docker/build-push-action@v5
         with:
           push: false
           context: .
           file: ./injected.Containerfile
-          build-args: |
-            VCS_REF="${{ github.sha }}"
-            BUILD_DATE="$(date -u '+%Y-%m-%dT%H:%M:%SZ')"
-            PROJECT_NAME="${{ github.repository }}"
-          tags: |
-            ${{ env.IMAGE_NAME }}:latest
 
   docker-build-push-image:
     name: Build and push Docker image
@@ -119,13 +111,13 @@ jobs:
           name: npm-build-artifacts
           path: artifacts
 
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
       - name: Prepare Docker image tag
         run: |
           echo IMAGE_TAG=$(if [ "$GITHUB_REF" == "refs/heads/master" ]; then echo "master-${GITHUB_SHA::7}"; else echo "$GITHUB_REF_NAME"; fi) >> $GITHUB_ENV
           echo "Docker image will be published with the tag: ${{ env.IMAGE_TAG }}!"
-
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v3
 
       - name: Log in to Docker Hub
         if: ${{ github.ref == 'refs/heads/master' ||  github.ref_type == 'tag' }}
