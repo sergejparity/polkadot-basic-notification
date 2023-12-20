@@ -7,8 +7,6 @@ on:
   pull_request:
     branches:
       - master
-  schedule:
-    - cron: '0 0 * * *'
 
 env:
   IMAGE_NAME: sergejparity/polkadot-basic-notification
@@ -93,12 +91,6 @@ jobs:
           push: false
           context: .
           file: ./injected.Containerfile
-          build-args: |
-            VCS_REF="${{ github.sha }}"
-            BUILD_DATE="$(date -u '+%Y-%m-%dT%H:%M:%SZ')"
-            PROJECT_NAME="${{ github.repository }}"
-          tags: |
-            ${{ env.IMAGE_NAME }}:latest
 
   docker-build-push-image:
     name: Build and push Docker image
